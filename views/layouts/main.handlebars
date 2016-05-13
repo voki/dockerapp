@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example App</title>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.min.css">
+
+</head>
+<body>
+    {{{body}}}
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="dist/semantic.min.js"></script>
+<script>
+
+
+$('.button').on('click', function() {
+
+
+$(function(){
+    $.getJSON('http://pltr-app-pl01:3000/info', function(data) {
+      $('.column:nth-child(3)').append('<div class="ui info message"><i class="close icon" onclick="removeParent(this)"></i><div class="header">Container ID: '+data.cid+'</div><p>Running on host: '+data.hostname+'</p></div>');
+
+
+    });
+});   
+
+  
+});
+
+
+removeParent = function(e) {
+    $(e).parent().remove();
+    }
+
+function clickButton() {
+  $.ajax({
+    type: 'GET',
+    url: '/info',
+  });
+  console.log("clicked!");
+}
+</script>
+
+</body>
+</html>
+

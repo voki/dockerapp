@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
     res.render('home', { cid: cid, hostname: hostname });
 });
 
-app.get('/info', function (req, res) {
+app.get('/api/info', function (req, res) {
     var result = {};
     result['cid'] = cid;
     result['hostname'] = hostname; 

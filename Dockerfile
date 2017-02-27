@@ -1,9 +1,11 @@
-FROM ubuntu:trusty
+FROM node:boron 
 RUN mkdir -p /app/
-COPY . /app/
-RUN apt-get update && apt-get install --no-install-recommends -y --force-yes nodejs
-RUN rm -rf /usr/sbin/node
-RUN ln -s "$(which nodejs)" /usr/sbin/node
 WORKDIR /app
+COPY package.json /app/
+RUN npm config set strict-ssl false
+RUN npm config set proxy http://43.196.177.37:8881
+RUN npm install
+COPY . /app/
+ENV http_proxy 43.196.160.219:4140 
 EXPOSE 3000 
 ENTRYPOINT [ "node", "index.js" ]

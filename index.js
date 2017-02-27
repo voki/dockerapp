@@ -1,14 +1,14 @@
 var os = require("os");
 var express = require('express');
 var exphbs = require('express-handlebars');
-var request = require('request');
+var request = require('request'),proxyUrl = 'http://<public_slave>:4140';
 var app = express();
 
 
 var cid = os.hostname();
 var hostname = process.env.HN;
-var vhost = process.env.VHOST;
-var url = 'http://'+vhost+'/api/info';
+var app_name = process.env.APP;
+var url = 'http://'+app_name+'/api/info';
 
 
 app.use(express.static(__dirname + '/public'));
@@ -29,7 +29,7 @@ app.get('/api/info', function (req, res) {
 
 app.get('/api/connect', function (req, res) {
     var json = {};
-    request(url, function (error, response, body) {
+    request(url,{proxy: proxyUrl}, function (error, response, body) {
       if (!error && response.statusCode == 200) {
 	res.contentType('application/json');
 	res.send(body);
